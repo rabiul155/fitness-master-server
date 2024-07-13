@@ -21,7 +21,7 @@ const updateCartProductBD = async (id: string, quantity: number) => {
       const product = await ProductModel.findById(cart?.product);
 
       if (product && quantity > product?.stock) {
-        throw new AppError(403, 'Quantity cross the limit of the stock');
+        throw new AppError(400, 'Quantity cross the limit of the stock');
       }
 
       cart.quantity = quantity;
@@ -38,7 +38,7 @@ const updateCartProductBD = async (id: string, quantity: number) => {
   }
 
   if (quantity < 0) {
-    throw new AppError(404, 'Quantity must be positive');
+    throw new AppError(400, 'Quantity must be positive');
   }
 };
 
