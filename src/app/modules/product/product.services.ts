@@ -14,8 +14,8 @@ const getAllProductsDB = async (queryStr: Record<string, unknown>) => {
     .filter()
     .search(['name', 'description'])
     .short()
-    .select()
-    .paginate();
+    .select();
+
   const results = await queryBuilders.Query;
 
   return results;
