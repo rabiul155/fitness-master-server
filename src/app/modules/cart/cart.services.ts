@@ -33,8 +33,8 @@ const updateCartProductBD = async (id: string, quantity: number) => {
   }
 
   if (quantity === 0) {
-    const products = await CartModel.findByIdAndDelete(id);
-    return null;
+    const product = await CartModel.findByIdAndDelete(id);
+    return product;
   }
 
   if (quantity < 0) {
