@@ -6,6 +6,7 @@ import notFoundRoute from './app/middleware/notFoundRoute';
 import globalErrorHandler from './app/error/globalErrorHandler';
 import { productRouters } from './app/modules/product/product.routes';
 import cartProductRoutes from './app/modules/cart/cart.routes';
+import { checkoutRoutes } from './app/modules/checkout/checkout.routes';
 
 const app: Application = express();
 
@@ -22,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/products', productRouters);
 app.use('/api/carts', cartProductRoutes);
+app.use('/api/checkouts', checkoutRoutes);
 
 //Not found route handle
 app.all('*', notFoundRoute);

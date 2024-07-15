@@ -1,4 +1,7 @@
+import mongoose from 'mongoose';
+
 export type ProductType = {
+  _id?: mongoose.Types.ObjectId;
   name: string;
   description: string;
   price: number;
