@@ -4,6 +4,7 @@ import { ProductType } from '../product/product.interface';
 export type UserType = {
   name: string;
   email: string;
+  phone: string;
   address: string;
 };
 
