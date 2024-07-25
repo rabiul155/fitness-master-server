@@ -7,7 +7,8 @@ const createCartProductBD = async (cartProduct: CartProductType) => {
   const data = await CartModel.findOne({ product: cartProduct.product });
   if (data) {
     data.quantity = data.quantity + 1;
-    await data.save();
+    const product = await data.save();
+    return product;
   } else {
     const product = await CartModel.create(cartProduct);
     return product;

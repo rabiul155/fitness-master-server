@@ -20,7 +20,8 @@ const createCartProductBD = (cartProduct) => __awaiter(void 0, void 0, void 0, f
     const data = yield cart_model_1.default.findOne({ product: cartProduct.product });
     if (data) {
         data.quantity = data.quantity + 1;
-        yield data.save();
+        const product = yield data.save();
+        return product;
     }
     else {
         const product = yield cart_model_1.default.create(cartProduct);
