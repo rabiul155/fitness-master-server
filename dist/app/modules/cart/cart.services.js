@@ -17,8 +17,15 @@ const AppError_1 = __importDefault(require("../../error/AppError"));
 const product_model_1 = require("../product/product.model");
 const cart_model_1 = __importDefault(require("./cart.model"));
 const createCartProductBD = (cartProduct) => __awaiter(void 0, void 0, void 0, function* () {
-    const product = yield cart_model_1.default.create(cartProduct);
-    return product;
+    const data = yield cart_model_1.default.findOne({ product: cartProduct.product });
+    if (data) {
+        data.quantity = data.quantity + 1;
+        yield data.save();
+    }
+    else {
+        const product = yield cart_model_1.default.create(cartProduct);
+        return product;
+    }
 });
 const getAllCartProductBD = () => __awaiter(void 0, void 0, void 0, function* () {
     const products = yield cart_model_1.default.find().populate({ path: 'product' });
