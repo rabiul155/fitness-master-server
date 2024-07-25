@@ -4,8 +4,14 @@ import { CartProductType } from './cart.interface';
 import CartModel from './cart.model';
 
 const createCartProductBD = async (cartProduct: CartProductType) => {
-  const product = await CartModel.create(cartProduct);
-  return product;
+  const data = await CartModel.findOne({ product: cartProduct.product });
+  if (data) {
+    data.quantity = data.quantity + 1;
+    await data.save();
+  } else {
+    const product = await CartModel.create(cartProduct);
+    return product;
+  }
 };
 
 const getAllCartProductBD = async () => {
