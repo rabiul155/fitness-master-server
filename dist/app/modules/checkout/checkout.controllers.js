@@ -12,22 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const path_1 = __importDefault(require("path"));
-dotenv_1.default.config({ path: path_1.default.join((process.cwd(), '.env')) });
-const app_1 = __importDefault(require("./app"));
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(process.env.DB_URL);
-            app_1.default.listen(process.env.PORT, () => {
-                console.log(`Fitness master services app listening on port ${process.env.PORT}`);
-            });
-        }
-        catch (error) {
-            console.log('DB connection error', error);
-        }
+exports.checkoutController = void 0;
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+const checkout_services_1 = require("./checkout.services");
+const createCheckout = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield checkout_services_1.checkoutServices.createCheckout(req.body);
+    res.status(201).json({
+        status: 'success',
+        message: 'Product added to checkout',
+        data,
     });
-}
-main();
+}));
+const getCheckout = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield checkout_services_1.checkoutServices.getCheckoutDB();
+    res.status(200).json({
+        status: 'success',
+        message: 'Checkout product get successfully',
+        data,
+    });
+}));
+exports.checkoutController = {
+    createCheckout,
+    getCheckout,
+};
